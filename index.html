@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screen Bleed</title>
+    <style>
+      div {
+        background-color: #fff;
+        width: 10px;
+        height: 10px;
+      }
+      body,
+      html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="button" value="click to go fullscreen" onclick="requestFullScreen()" />
+    </div>
+    <script>
+      function requestFullScreen() {
+        var el = document.body;
+
+        var requestMethod =
+          el.requestFullScreen ||
+          el.webkitRequestFullScreen ||
+          el.mozRequestFullScreen ||
+          el.msRequestFullScreen;
+
+        if (requestMethod) {
+          // Native full screen.
+          requestMethod.call(el);
+        } else if (typeof window.ActiveXObject !== 'undefined') {
+          // Older IE.
+          var wscript = new ActiveXObject('WScript.Shell');
+
+          if (wscript !== null) {
+            wscript.SendKeys('{F11}');
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
